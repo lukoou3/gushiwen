@@ -31,3 +31,8 @@ class AuthorItem(scrapy.Item):
     name = scrapy.Field()
     dynasty = scrapy.Field()
     info = scrapy.Field()
+
+class ZztjItem(scrapy.Item):
+    _id = scrapy.Field()
+    title = scrapy.Field()
+    content = scrapy.Field()

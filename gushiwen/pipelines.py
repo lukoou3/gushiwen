@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from gushiwen.items import GushiwenItem,AuthorItem
+from gushiwen.items import GushiwenItem,AuthorItem,ZztjItem
 
 class GushiwenPipeline(object):
     def process_item(self, item, spider):
@@ -17,4 +17,12 @@ class GushiwenPipeline(object):
             tb = db.gushiwen_author
             #tb.insert_one(item)
             tb.update_one({"name": item["name"],"dynasty": item["dynasty"]},{"$set":item}, upsert=True)
+        return item
+
+class ZztjPipeline(object):
+    def process_item(self, item, spider):
+        db = spider.db
+        if isinstance(item,ZztjItem):
+            tb = db.zztj
+            tb.update_one({"_id": item["_id"]},{"$set":item}, upsert=True)
         return item
