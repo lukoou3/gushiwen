@@ -26,3 +26,11 @@ class ZztjPipeline(object):
             tb = db.zztj
             tb.update_one({"_id": item["_id"]},{"$set":item}, upsert=True)
         return item
+
+"""
+import pymongo
+client = pymongo.MongoClient(host='localhost', port=27017)
+db = client.get_database("gushiwen")
+[(line,item["title"])  for item in sorted(db.gushiwen.find({},{"contents":1,"title":1,"good":1,"_id":-1}),
+key=lambda item:int(item['good']),reverse=True) for line in item["contents"] if "酒" in line and len(line) < 80]
+"""
